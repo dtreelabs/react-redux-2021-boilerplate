@@ -1,27 +1,30 @@
-import React from 'react'
+import React, {useEffect} from 'react'
+import { useQuery } from 'react-query';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { login } from '../features/user'; 
+import { initializeUsers, addUser } from '../features/user';
+import useUsers from '../hooks/useUsers';
+
+
 
 const Profile = () => {
-  const user = useSelector((state) => state.user);
-  const dispatch = useDispatch();
+  const {isLoading, users, error} = useUsers();
 
-  console.log("Rendering Profile");
-
-  const addNewUser = () => (
-    dispatch(login({id: 202, name: 'new user from action', age: 99}))
-  );
+  if (isLoading) return 'Loading...';
+  if (error) return 'An error has occurred: ' + error.message;
 
   return (
     <div>
-      <h5>Welcome :-</h5>
-      id: {user.id}
-      name: {user.name}
-      age: {user.age}
-
-      <hr></hr>
-      <input type='button' onClick={addNewUser} value='add new user' />
+      {users.map((user) => {
+        return(
+          <tr>
+            <td>{user.id}</td>
+            <td>{user.name}</td>
+            <td>{user.email}</td>
+          </tr>
+        )
+      })}
+      <input type='button' onClick={() => {}} value='add new user' />
     </div>
   )
 }

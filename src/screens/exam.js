@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { addQuestion } from '../features/exams';
 
 const Exam = () => {
@@ -8,7 +7,6 @@ const Exam = () => {
 
   const dispatch = useDispatch();
   const exam = useSelector((state) => state.exam);
-
   const [question, setQuestion] = useState('1. question');
 
   const onQuestionSubmit = () => (
